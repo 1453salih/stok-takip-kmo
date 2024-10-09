@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Set;
-
+@Table(name = "product_categories")
 @Data
 @Entity
 public class ProductCategories {
@@ -15,6 +15,6 @@ public class ProductCategories {
     private String name;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    //? Set kullılmasındaki sebep tekrar eden elemanlara izin vermez ve hızlı sıralama işim yok
+    //? Set kullanılmasındaki sebep tekrar eden elemanlara izin vermez ve hızlı sıralama işim yok
     private Set<Products> products;
 }

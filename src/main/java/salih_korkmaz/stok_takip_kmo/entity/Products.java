@@ -2,13 +2,16 @@ package salih_korkmaz.stok_takip_kmo.entity;
 
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.math.BigDecimal;
 
-
-@Data
+@Table(name = "products")
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Products {
 
     @Id
@@ -18,10 +21,10 @@ public class Products {
     @Column(nullable = false, length = 50)
     private Long code;
 
-    @Column(nullable = false)
+    @Column(nullable = false,length = 50)
     private String name;
 
-    @Column(precision = 10, scale = 2,nullable = false)//örn: 12345678.12
+    @Column(precision = 10, scale = 2,nullable = false)//* örn: 12345678.12
     private BigDecimal priceOne;
 
     @Column(precision = 10, scale = 2)
@@ -30,7 +33,10 @@ public class Products {
     @Column(precision = 10, scale = 2)
     private BigDecimal priceThree;
 
-
     @ManyToOne
+    @JoinColumn(name = "category_id")
     private ProductCategories category;
+
+    @OneToOne(mappedBy = "product",cascade = CascadeType.ALL)
+    private ProductTransactionHistory productTransactionHistory;
 }
